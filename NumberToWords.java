@@ -8,9 +8,9 @@ public class NumberToWords {
      int thirdDigit = num % 10;
      
       
-      String[] ones = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}; 
-      String[] teens = {"", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
-      String[] tens = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+      String[] ones = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}; 
+      String[] teens = {"", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
+      String[] tens = {"", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
       String[] hundered = {" hundered ", " hundred and "};
       
       if (num < 0 || num > 999) {
@@ -57,18 +57,62 @@ public class NumberToWords {
 
     }
 
-    /*public static String intToRoman(int num) {
-       //Write your code here 
-    } */
+    public static String intToRoman(int num) {
+      //Write your code here 
+
+      int firstDigit = num / 100;
+      int secondDigit = (num % 100) / 10;
+      int thirdDigit = num % 10;
+
+      String[] ones = {"", "I" , "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+      String[] tens = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+      String[] hundered = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+
+      if (num < 0 || num > 999) {
+        return "Invalid number";
+      }
+
+      if (num == 0) {
+        return "Zero";
+      }
+
+      if (num < 10 && num > 0) {
+        return ones[num];
+      }
+
+      if (num < 100 && num > 10) {
+        if (thirdDigit == 0) {
+          return tens[secondDigit];
+        } else {
+          return tens[secondDigit] + ones[thirdDigit];
+        }
+      }
+
+      if (num < 1000 && num > 100) {
+        if (secondDigit == 0 && thirdDigit == 0) {
+          return hundered[firstDigit];
+        } else if (secondDigit == 0) {
+          return hundered[firstDigit] + tens[secondDigit];
+        } else if (thirdDigit == 0) {
+          return hundered[firstDigit] + tens[secondDigit];
+        } else {
+          return hundered[firstDigit] + tens[secondDigit] + ones[thirdDigit];
+        }
+      }
+
+      else {
+        return "Invalid number";
+      }
+
+    }
 
     public static void main(String[] args) {
 		//Write your code here 
-    
     int numInput = getInput();
-
+    
     while(numInput != -1) {
         System.out.println("In words : " + intToWords(numInput));
-        //System.out.println("In Roman : " + intToRoman(numInput));
+        System.out.println("In Roman : " + intToRoman(numInput));
         numInput = getInput();
     }
 
@@ -85,4 +129,8 @@ public class NumberToWords {
     int numInput = In.nextInt();
     return numInput;
   }
+
+  /*public static String invalidInput () {
+    return "Invalid number";
+  }*/
 }
